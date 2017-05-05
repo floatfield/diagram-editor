@@ -1,0 +1,4 @@
+var _user$project$Msgs$UnselectComponent = {ctor: 'UnselectComponent'};
+var _user$project$Msgs$SelectComponent = function (a) {
+	return {ctor: 'SelectComponent', _0: a};
+};

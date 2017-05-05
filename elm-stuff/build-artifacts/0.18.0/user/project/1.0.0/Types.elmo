@@ -1,0 +1,13 @@
+var _user$project$Types$Point = F2(
+	function (a, b) {
+		return {x: a, y: b};
+	});
+var _user$project$Types$Dashed = {ctor: 'Dashed'};
+var _user$project$Types$Dotted = {ctor: 'Dotted'};
+var _user$project$Types$Solid = {ctor: 'Solid'};
+var _user$project$Types$Line = function (a) {
+	return {ctor: 'Line', _0: a};
+};
+var _user$project$Types$Ellipse = function (a) {
+	return {ctor: 'Ellipse', _0: a};
+};

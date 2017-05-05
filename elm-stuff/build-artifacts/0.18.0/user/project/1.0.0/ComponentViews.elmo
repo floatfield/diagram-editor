@@ -1,0 +1,156 @@
+var _user$project$ComponentViews$strokeToArray = function (strokeStyle) {
+	var _p0 = strokeStyle;
+	switch (_p0.ctor) {
+		case 'Solid':
+			return '1,0';
+		case 'Dashed':
+			return '10,5';
+		default:
+			return '1,5';
+	}
+};
+var _user$project$ComponentViews$lineView = F4(
+	function (selected, componentOpacity, click, l) {
+		var props = {
+			x1: _elm_lang$core$Basics$toString(l.start.x),
+			y1: _elm_lang$core$Basics$toString(l.start.y),
+			x2: _elm_lang$core$Basics$toString(l.end.x),
+			y2: _elm_lang$core$Basics$toString(l.end.y)
+		};
+		return A2(
+			_elm_lang$svg$Svg$line,
+			{
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$x1(props.x1),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$y1(props.y1),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$x2(props.x2),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$y2(props.y2),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$stroke(l.strokeColor),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$strokeWidth(l.strokeWidth),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$strokeDasharray(
+											_user$project$ComponentViews$strokeToArray(l.strokeStyle)),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$opacity(componentOpacity),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Events$onClick(click),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{ctor: '[]'});
+	});
+var _user$project$ComponentViews$ellipseView = F4(
+	function (selected, componentOpacity, click, el) {
+		var props = {
+			cx: _elm_lang$core$Basics$toString(el.x),
+			cy: _elm_lang$core$Basics$toString(el.y),
+			rx: _elm_lang$core$Basics$toString(el.rx),
+			ry: _elm_lang$core$Basics$toString(el.ry)
+		};
+		return A2(
+			_elm_lang$svg$Svg$ellipse,
+			{
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$cx(props.cx),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$cy(props.cy),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$rx(props.rx),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$ry(props.ry),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$strokeWidth(el.strokeWidth),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$stroke(el.strokeColor),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$fill(el.fill),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$strokeDasharray(
+												_user$project$ComponentViews$strokeToArray(el.strokeStyle)),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$opacity(componentOpacity),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$svg$Svg_Events$onClick(click),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			{ctor: '[]'});
+	});
+var _user$project$ComponentViews$componentView = F2(
+	function (selectedComponent, _p1) {
+		var _p2 = _p1;
+		var _p5 = _p2._1;
+		var selected = function () {
+			var _p3 = selectedComponent;
+			if (_p3.ctor === 'Nothing') {
+				return false;
+			} else {
+				return _elm_lang$core$Native_Utils.eq(_p3._0, _p5);
+			}
+		}();
+		var componentOpacity = selected ? '0.8' : '1';
+		var click = (!selected) ? _user$project$Msgs$SelectComponent(_p5) : _user$project$Msgs$UnselectComponent;
+		var _p4 = _p2._0;
+		if (_p4.ctor === 'Ellipse') {
+			return A4(_user$project$ComponentViews$ellipseView, selected, componentOpacity, click, _p4._0);
+		} else {
+			return A4(_user$project$ComponentViews$lineView, selected, componentOpacity, click, _p4._0);
+		}
+	});
+var _user$project$ComponentViews$componentsView = F2(
+	function (selectedComponent, components) {
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			{ctor: '[]'},
+			A2(
+				_elm_lang$core$List$map,
+				_user$project$ComponentViews$componentView(selectedComponent),
+				A3(
+					_elm_lang$core$List$map2,
+					F2(
+						function (v0, v1) {
+							return {ctor: '_Tuple2', _0: v0, _1: v1};
+						}),
+					components,
+					A2(
+						_elm_lang$core$List$range,
+						0,
+						_elm_lang$core$List$length(components)))));
+	});
